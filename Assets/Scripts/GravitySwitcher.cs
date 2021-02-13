@@ -30,9 +30,7 @@ public class GravitySwitcher : MonoBehaviour
         else
         {
             ballRB2D.gravityScale = defaultGravity;
-            //ballRB2D.velocity = Vector2.zero;
         }
-        //ballRB2D.gravityScale = (isMapRotating) ? 0 : defaultGravity;
     }
 
     void OnDisable()

@@ -6,13 +6,13 @@ using UnityEngine;
 public class GroundHitEffectEventTrigger : MonoBehaviour
 {
     [SerializeField] Vector2Variable playerVelocity;
-    [SerializeField] BoolVariable isGrounded;
 
     [SerializeField] float MaxHitVelocityToShowEffects = -10;
 
-    bool isEffectCooldownTimePassed;
+    [SerializeField]bool isEffectCooldownTimePassed;
     const float coolDownEffectTime = 0.1f;
     WaitForSeconds cooldownEffectTimeDelay;
+    Vector2 LastVelocity;
 
     void Awake()
     {
@@ -20,21 +20,26 @@ public class GroundHitEffectEventTrigger : MonoBehaviour
         cooldownEffectTimeDelay = new WaitForSeconds(coolDownEffectTime);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void Start()
     {
-        if (!isGrounded.value) return;
-        if (!isEffectCooldownTimePassed) return;
-        if (!IsFallenVelocityFastEnoughtToShowEffects()) return;
+        LastVelocity = playerVelocity.value;
+    }
 
+    void FixedUpdate()
+    {
+        if (!isEffectCooldownTimePassed) return;
+        if (!IsWallHitVelocityFastEnoughtToShowEffects()) return;
 
         OnHitTheGroundEffect?.Invoke();
         StartCoroutine(StartCooldownEffect());
-        print("To Create Effects. [Velocity] = "+ playerVelocity.value.y);
+        //print("To Create Effects. [Velocity] = " + playerVelocity.value.y);
     }
 
-    bool IsFallenVelocityFastEnoughtToShowEffects()
+    bool IsWallHitVelocityFastEnoughtToShowEffects()
     {
-        return (playerVelocity.value.y <= MaxHitVelocityToShowEffects);
+        bool result = Vector2.Distance(LastVelocity, playerVelocity.value) >= MaxHitVelocityToShowEffects;
+        LastVelocity = playerVelocity.value;
+        return result;
     }
 
     IEnumerator StartCooldownEffect()

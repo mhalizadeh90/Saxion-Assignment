@@ -13,7 +13,9 @@ public class InputManager : MonoBehaviour
     void Awake()
     {
         InputSlider = GetComponent<Slider>();
-        ResetInputValue();
+        InputValue.value = 0;
+        InputSlider.value = 0;
+        IsSliderHold = false;
     }
 
 
@@ -24,7 +26,6 @@ public class InputManager : MonoBehaviour
         InputSlider.value = defaultValue;
         IsSliderHold = false;
         OnInputUpdate?.Invoke(false);
-        //print("Reset");
     }
 
     public void UpdateSliderValue()
@@ -35,7 +36,6 @@ public class InputManager : MonoBehaviour
         {
             OnInputUpdate?.Invoke(true);
             IsSliderHold = true;
-            //print("Update");
         }
     }
 

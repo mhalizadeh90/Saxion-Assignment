@@ -1,13 +1,7 @@
 fileFormatVersion: 2
-guid: 43b4e99ce01025642a066a30826b1d69
+guid: 7e8af8b8753664441be274e5ab08cfb0
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -4454914845596493489
-    second: Lever_Handle
-  - first:
-      213: 1694985531360637023
-    second: Lever_Panel
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -47,12 +41,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 180
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -105,49 +99,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Lever_Handle
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 186
-        width: 229
-        height: 156
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f495b931d86fc22c0800000000000000
-      internalID: -4454914845596493489
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lever_Panel
-      rect:
-        serializedVersion: 2
-        x: 284
-        y: 56
-        width: 1104
-        height: 382
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f507d204c5cc58710800000000000000
-      internalID: 1694985531360637023
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
