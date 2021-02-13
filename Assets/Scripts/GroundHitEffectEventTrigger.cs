@@ -10,7 +10,7 @@ public class GroundHitEffectEventTrigger : MonoBehaviour
     [SerializeField] float MaxHitVelocityToShowEffects = -10;
 
     [SerializeField]bool isEffectCooldownTimePassed;
-    const float coolDownEffectTime = 0.1f;
+    const float coolDownEffectTime = 0.2f;
     WaitForSeconds cooldownEffectTimeDelay;
     Vector2 LastVelocity;
 
