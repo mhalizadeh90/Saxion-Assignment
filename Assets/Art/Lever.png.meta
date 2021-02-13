@@ -8,6 +8,12 @@ TextureImporter:
   - first:
       213: 1694985531360637023
     second: Lever_Panel
+  - first:
+      213: 5485825327199046830
+    second: Lever_Panel
+  - first:
+      213: 1694985531360637023
+    second: Lever_Handle
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -110,30 +116,9 @@ TextureImporter:
       name: Lever_Handle
       rect:
         serializedVersion: 2
-        x: 0
-        y: 186
-        width: 229
-        height: 156
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f495b931d86fc22c0800000000000000
-      internalID: -4454914845596493489
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lever_Panel
-      rect:
-        serializedVersion: 2
-        x: 284
-        y: 56
-        width: 1104
+        x: 337
+        y: 31
+        width: 530
         height: 382
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -144,6 +129,27 @@ TextureImporter:
       bones: []
       spriteID: f507d204c5cc58710800000000000000
       internalID: 1694985531360637023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lever_Panel
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 464
+        width: 1104
+        height: 382
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eac4a87e111912c40800000000000000
+      internalID: 5485825327199046830
       vertices: []
       indices: 
       edges: []

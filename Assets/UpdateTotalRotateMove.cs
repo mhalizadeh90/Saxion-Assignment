@@ -23,7 +23,6 @@ public class UpdateTotalRotateMove : MonoBehaviour
         if (!isButtonHold)
             return;
 
-        print("Move Count");
         totalRotateMove++;
         moveText.text = totalRotateMove.ToString();
     }
