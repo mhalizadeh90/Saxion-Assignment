@@ -24,6 +24,7 @@ public class AudioManager : MonoBehaviour
     void OnEnable()
     {
         FinishEvent.OnBallReachFinishPoint += PlayWinSFX;
+        FinishEvent.OnBallReachFinishPoint += StopMusicPlayer;
         GroundHitEffectEventTrigger.OnHitTheGroundEffect += PlayBounceSFX;
         InputManager.OnInputUpdate += PlayRotateSFX;
     }
@@ -67,9 +68,15 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    void StopMusicPlayer()
+    {
+        musicPlayer.Stop();
+    }
+
     void OnDisable()
     {
         FinishEvent.OnBallReachFinishPoint -= PlayWinSFX;
+        FinishEvent.OnBallReachFinishPoint -= StopMusicPlayer;
         GroundHitEffectEventTrigger.OnHitTheGroundEffect -= PlayBounceSFX;
         InputManager.OnInputUpdate -= PlayRotateSFX;
     }

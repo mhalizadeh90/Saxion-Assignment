@@ -42,6 +42,7 @@ public class GroundHitEffectEventTrigger : MonoBehaviour
         return result;
     }
 
+
     IEnumerator StartCooldownEffect()
     {
         isEffectCooldownTimePassed = false;

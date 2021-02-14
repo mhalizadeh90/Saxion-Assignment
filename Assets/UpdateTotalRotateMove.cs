@@ -1,18 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UpdateTotalRotateMove : MonoBehaviour
 {
-    Text moveText;
-    int totalRotateMove = 0;
+    [SerializeField] FloatVariable totalRotateMove;
+
+
     void Awake()
     {
-        moveText = GetComponent<Text>();
-        moveText.text = "0";
+        totalRotateMove.value = 0;
     }
-
     void OnEnable()
     {
         InputManager.OnInputUpdate += updateTotalRotateMoveText;
@@ -23,8 +21,7 @@ public class UpdateTotalRotateMove : MonoBehaviour
         if (!isButtonHold)
             return;
 
-        totalRotateMove++;
-        moveText.text = totalRotateMove.ToString();
+        totalRotateMove.value++;
     }
 
     void OnDisable()
