@@ -19,8 +19,5 @@ namespace Assets.Pixelation.Scripts
             material.SetVector("BlockSize", size);
             Graphics.Blit(source, destination, material);
         }
-
-
-        updat
     }
 }
