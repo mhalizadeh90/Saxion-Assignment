@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 9092103363953762320}
   - component: {fileID: 9092103363953762543}
   - component: {fileID: 9092103363953762541}
-  - component: {fileID: 9092103363953762321}
   - component: {fileID: 9092103363953762542}
+  - component: {fileID: 1209348710308699725}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -44,7 +44,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -85,20 +85,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9092103363953762540}
   m_Enabled: 1
---- !u!114 &9092103363953762321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9092103363953762540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42cd8dcae69d178488f5efa28e7c7e78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shader: {fileID: 4800000, guid: 95703b29f49b899499233ea7308bb800, type: 3}
-  BlockCount: 512
 --- !u!114 &9092103363953762542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +101,23 @@ MonoBehaviour:
   SliderValue: {fileID: 11400000, guid: ec5d9df0c44d8eb4499f5af5c5faf534, type: 2}
   ResetZoomEffectSpeed: 10
   StartZoomEffectSpeed: 2
-  EnablePixalateEffect: 1
-  pixelationEffector: {fileID: 9092103363953762321}
-  ResetPixelateEffectSpeed: 600
-  StartPixelateEffectSpeed: 10
+  EnableBlurryEffect: 1
+  blurryEffect: {fileID: 1209348710308699725}
+  ResetBlurryEffectSpeed: 500
+  StartBlurryEffectSpeed: 500
+  BlurryMax: 3
+--- !u!114 &1209348710308699725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9092103363953762540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d27c34d2978d14a91f8fdabf576bda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SCShader: {fileID: 4800000, guid: d1060eea8f2b2a24fa36c8c229a0633a, type: 3}
+  Amount: 0
+  FastFilter: 1

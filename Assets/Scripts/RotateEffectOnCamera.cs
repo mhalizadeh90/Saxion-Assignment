@@ -12,29 +12,31 @@ public class RotateEffectOnCamera : MonoBehaviour
     bool isPixelateEffectSetToDefault;
     bool isCameraSetToDefaultZoom;
 
-    [Header("Pixelate Effect")]
-    [SerializeField] bool EnablePixalateEffect;
-    [SerializeField] Assets.Pixelation.Scripts.Pixelation pixelationEffector;
-    [SerializeField] float ResetPixelateEffectSpeed = 100;
-    [SerializeField] float StartPixelateEffectSpeed = 100;
+    [Header("Blurry Effect")]
+    [SerializeField] bool EnableBlurryEffect;
+    [SerializeField] CameraFilterPack_Blur_Blurry blurryEffect;
+  //  [SerializeField] Assets.Pixelation.Scripts.Pixelation pixelationEffector;
+    [SerializeField] float ResetBlurryEffectSpeed = 100;
+    [SerializeField] float StartBlurryEffectSpeed = 100;
+    [SerializeField] float BlurryMax = 5;
+    float BlurryMin = 0;
 
     bool toStartEffect = false;
     bool isTheEffectApplied = false;
     float defaultCameraZoom;
-    const float PixelateMax = 100;
-    const float PixelateMin = 512;
-    const float sliderOffset = PixelateMin - PixelateMax;
+    float sliderOffset;
 
     Camera mainCamera;
     float SliderAbsValue;
 
     void Awake()
     {
+        sliderOffset = BlurryMax - BlurryMin;
         mainCamera = GetComponent<Camera>();
         defaultCameraZoom = mainCamera.orthographicSize;
 
         if (!SliderValue) EnableZoomEffect = false;
-        if (!pixelationEffector) EnablePixalateEffect = false;
+        if (!blurryEffect) EnableBlurryEffect = false;
 
     }
     void OnEnable()
@@ -56,8 +58,8 @@ public class RotateEffectOnCamera : MonoBehaviour
                 mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, (SliderAbsValue + defaultCameraZoom), Time.deltaTime * StartZoomEffectSpeed);
             // mainCamera.orthographicSize =  SliderAbsValue + defaultCameraZoom;
 
-            if (EnablePixalateEffect)
-                pixelationEffector.BlockCount = Mathf.Lerp(pixelationEffector.BlockCount, Mathf.Clamp(SliderAbsValue * sliderOffset, PixelateMax, PixelateMin), Time.deltaTime * StartPixelateEffectSpeed);
+            if (EnableBlurryEffect)
+                blurryEffect.Amount = Mathf.Lerp(blurryEffect.Amount, SliderAbsValue * sliderOffset,Time.deltaTime* StartBlurryEffectSpeed);
             // pixelationEffector.BlockCount = Mathf.Clamp(SliderAbsValue * sliderOffset,PixelateMax,PixelateMin);
 
             isTheEffectApplied = true;
@@ -72,13 +74,13 @@ public class RotateEffectOnCamera : MonoBehaviour
                     if (!isCameraSetToDefaultZoom) mainCamera.orthographicSize -= Time.deltaTime * ResetZoomEffectSpeed;
                 }
 
-                if (EnablePixalateEffect)
+                if (EnableBlurryEffect)
                 {
-                    isPixelateEffectSetToDefault = pixelationEffector.BlockCount >= PixelateMin;
-                    if (!isPixelateEffectSetToDefault) pixelationEffector.BlockCount += Time.deltaTime * ResetPixelateEffectSpeed;
+                    isPixelateEffectSetToDefault = blurryEffect.Amount >= BlurryMin;
+                    if (!isPixelateEffectSetToDefault) blurryEffect.Amount += Time.deltaTime * ResetBlurryEffectSpeed;
                 }
 
-                if ((!EnableZoomEffect || isCameraSetToDefaultZoom) && (!EnablePixalateEffect || isPixelateEffectSetToDefault))
+                if ((!EnableZoomEffect || isCameraSetToDefaultZoom) && (!EnableBlurryEffect || isPixelateEffectSetToDefault))
                 {
                     isTheEffectApplied = false;
                 }
