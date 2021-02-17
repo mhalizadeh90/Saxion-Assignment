@@ -8,6 +8,7 @@ public class RotateEffectOnCamera : MonoBehaviour
     [SerializeField] bool EnableZoomEffect;
     [SerializeField] FloatVariable SliderValue;
     [SerializeField] float ResetZoomEffectSpeed = 2;
+    [SerializeField] float StartZoomEffectSpeed = 2;
     bool isPixelateEffectSetToDefault;
     bool isCameraSetToDefaultZoom;
 
@@ -15,6 +16,7 @@ public class RotateEffectOnCamera : MonoBehaviour
     [SerializeField] bool EnablePixalateEffect;
     [SerializeField] Assets.Pixelation.Scripts.Pixelation pixelationEffector;
     [SerializeField] float ResetPixelateEffectSpeed = 100;
+    [SerializeField] float StartPixelateEffectSpeed = 100;
 
     bool toStartEffect = false;
     bool isTheEffectApplied = false;
@@ -49,12 +51,14 @@ public class RotateEffectOnCamera : MonoBehaviour
         if (toStartEffect)
         {
             SliderAbsValue = Mathf.Abs(SliderValue.value);
-        
-            if(EnableZoomEffect)
-                mainCamera.orthographicSize = SliderAbsValue + defaultCameraZoom;
 
-            if(EnablePixalateEffect)
-                pixelationEffector.BlockCount = Mathf.Clamp(SliderAbsValue * sliderOffset,PixelateMax,PixelateMin);
+            if (EnableZoomEffect)
+                mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, (SliderAbsValue + defaultCameraZoom), Time.deltaTime * StartZoomEffectSpeed);
+            // mainCamera.orthographicSize =  SliderAbsValue + defaultCameraZoom;
+
+            if (EnablePixalateEffect)
+                pixelationEffector.BlockCount = Mathf.Lerp(pixelationEffector.BlockCount, Mathf.Clamp(SliderAbsValue * sliderOffset, PixelateMax, PixelateMin), Time.deltaTime * StartPixelateEffectSpeed);
+            // pixelationEffector.BlockCount = Mathf.Clamp(SliderAbsValue * sliderOffset,PixelateMax,PixelateMin);
 
             isTheEffectApplied = true;
         }
