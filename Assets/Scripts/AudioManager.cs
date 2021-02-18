@@ -10,12 +10,14 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip ClickSFX;
     [SerializeField] AudioClip WinSFX;
     [SerializeField] AudioClip LooseSFX;
+    [SerializeField] AudioClip SpikeOutSFX;
 
     [Header("Audio Source Reference")]
     [SerializeField] AudioSource musicPlayer;
     [SerializeField] AudioSource bounceSFXPlayer;
     [SerializeField] AudioSource ButtonPlayer;
     [SerializeField] AudioSource GameOverPlayer;
+    [SerializeField] AudioSource SpikePlayer;
 
     [Space]
     [SerializeField] FloatVariable inputSlider;
@@ -25,14 +27,17 @@ public class AudioManager : MonoBehaviour
     {
         FinishEvent.OnBallReachFinishPoint += PlayWinSFX;
         FinishEvent.OnBallReachFinishPoint += StopMusicPlayer;
+        SpikeCollisionEventTrigger.OnPlayerHitSpikes += PlayDeathSFX;
         GroundHitEffectEventTrigger.OnHitTheGroundEffect += PlayBounceSFX;
         InputManager.OnInputUpdate += PlayRotateSFX;
+        SpikeDynamicController.OnSpikesOut += PlaySpikeOut;
     }
 
     void PlayBounceSFX()
     {
         bounceSFXPlayer.Play();
     }
+
 
 
     void Update()
@@ -47,6 +52,18 @@ public class AudioManager : MonoBehaviour
     {
         GameOverPlayer.clip = WinSFX;
         GameOverPlayer.Play();
+    }
+
+    void PlayDeathSFX()
+    {
+        GameOverPlayer.clip = LooseSFX;
+        GameOverPlayer.Play();
+    }
+
+    void PlaySpikeOut()
+    {
+        SpikePlayer.clip = SpikeOutSFX;
+        SpikePlayer.Play();
     }
 
     void PlayRotateSFX(bool toStartRotation)
@@ -77,6 +94,8 @@ public class AudioManager : MonoBehaviour
     {
         FinishEvent.OnBallReachFinishPoint -= PlayWinSFX;
         FinishEvent.OnBallReachFinishPoint -= StopMusicPlayer;
+        SpikeCollisionEventTrigger.OnPlayerHitSpikes -= PlayDeathSFX;
+        SpikeDynamicController.OnSpikesOut -= PlaySpikeOut;
         GroundHitEffectEventTrigger.OnHitTheGroundEffect -= PlayBounceSFX;
         InputManager.OnInputUpdate -= PlayRotateSFX;
     }
