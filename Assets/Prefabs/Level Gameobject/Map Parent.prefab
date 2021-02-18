@@ -7150,6 +7150,7 @@ GameObject:
   - component: {fileID: 1673313861059013757}
   - component: {fileID: 1673313861059013756}
   - component: {fileID: 6257543602778359499}
+  - component: {fileID: 3788971089472687277}
   m_Layer: 0
   m_Name: Map Parent
   m_TagString: Untagged
@@ -7224,6 +7225,19 @@ MonoBehaviour:
   CameraResetSpeed: 10
   Player: {fileID: 1673313860311195657}
   MapParent: {fileID: 1673313861059013746}
+--- !u!114 &3788971089472687277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673313861059013747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 883b2bd3dd8b59c44bdd8d8683011b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 1673313860311195657}
 --- !u!1 &1673313861270836396
 GameObject:
   m_ObjectHideFlags: 0

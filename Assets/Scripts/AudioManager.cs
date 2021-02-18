@@ -11,6 +11,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip WinSFX;
     [SerializeField] AudioClip LooseSFX;
     [SerializeField] AudioClip SpikeOutSFX;
+    [SerializeField] AudioClip OpenDoorSFX;
+    [SerializeField] AudioClip TeleportSFX;
 
     [Header("Audio Source Reference")]
     [SerializeField] AudioSource musicPlayer;
@@ -18,6 +20,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource ButtonPlayer;
     [SerializeField] AudioSource GameOverPlayer;
     [SerializeField] AudioSource SpikePlayer;
+    [SerializeField] AudioSource SFXPlayer;
 
     [Space]
     [SerializeField] FloatVariable inputSlider;
@@ -31,13 +34,8 @@ public class AudioManager : MonoBehaviour
         GroundHitEffectEventTrigger.OnHitTheGroundEffect += PlayBounceSFX;
         InputManager.OnInputUpdate += PlayRotateSFX;
         SpikeDynamicController.OnSpikesOut += PlaySpikeOut;
+        MoveToward.OnDoorIsLocked += PlayDoorLockSFX;
     }
-
-    void PlayBounceSFX()
-    {
-        bounceSFXPlayer.Play();
-    }
-
 
 
     void Update()
@@ -46,6 +44,23 @@ public class AudioManager : MonoBehaviour
         {
             ButtonPlayer.pitch = Mathf.Abs(inputSlider.value)+0.4f;
         }
+    }
+
+    void PlayBounceSFX()
+    {
+        bounceSFXPlayer.Play();
+    }
+
+    void PlayDoorLockSFX()
+    {
+        SFXPlayer.clip = OpenDoorSFX;
+        SFXPlayer.Play();
+    }
+
+    void PlayTeleportSFX()
+    {
+        SFXPlayer.clip = TeleportSFX;
+        SFXPlayer.Play();
     }
 
     void PlayWinSFX()
@@ -98,5 +113,6 @@ public class AudioManager : MonoBehaviour
         SpikeDynamicController.OnSpikesOut -= PlaySpikeOut;
         GroundHitEffectEventTrigger.OnHitTheGroundEffect -= PlayBounceSFX;
         InputManager.OnInputUpdate -= PlayRotateSFX;
+        MoveToward.OnDoorIsLocked -= PlayDoorLockSFX;
     }
 }
