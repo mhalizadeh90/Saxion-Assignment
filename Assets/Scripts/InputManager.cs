@@ -6,36 +6,83 @@ using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour
 {
-    Slider InputSlider;
     [SerializeField] FloatVariable InputValue;
-    bool IsSliderHold;
+    [Header("Screen Touch")]
+    [SerializeField] bool IsScreenTouchEnable;
+    [Header("Slider Touch")]
+    [SerializeField] Slider InputSlider;
+    Touch touch;
+    float startTouchX;
+    bool IsInputButtonHold;
+    Camera mainCam;
 
     void Awake()
     {
-        InputSlider = GetComponent<Slider>();
+        mainCam = FindObjectOfType<Camera>();
         InputValue.value = 0;
-        InputSlider.value = 0;
-        IsSliderHold = false;
+        
+        if(InputSlider)
+            InputSlider.value = 0;
+        
+        IsInputButtonHold = false;
     }
 
+    void Update()
+    {
+        if (!IsScreenTouchEnable)
+            return;
+
+        if(Input.touchCount > 0)
+        {
+            touch = Input.GetTouch(0);
+
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    startTouchX = mainCam.ScreenToWorldPoint(touch.position).x; 
+                    break;
+                case TouchPhase.Moved:
+                    UpdateTouchValue(mainCam.ScreenToWorldPoint(touch.position).x - startTouchX);
+                    break;
+                case TouchPhase.Ended:
+                    ResetInputValue();
+                    break;
+            }
+
+        }
+    }
 
 
     public void ResetInputValue(float defaultValue = 0)
     {
+        if(InputSlider)
+            InputSlider.value = defaultValue;
+
         InputValue.value = defaultValue;
-        InputSlider.value = defaultValue;
-        IsSliderHold = false;
+        IsInputButtonHold = false;
         OnInputUpdate?.Invoke(false);
     }
 
     public void UpdateSliderValue()
     {
-        InputValue.value = InputSlider.value;
+        if(InputSlider)
+            InputValue.value = InputSlider.value;
         
-        if(!IsSliderHold)
+        if(!IsInputButtonHold)
         {
             OnInputUpdate?.Invoke(true);
-            IsSliderHold = true;
+            IsInputButtonHold = true;
+        }
+    }
+
+    public void UpdateTouchValue(float touchInputValue)
+    {
+        InputValue.value = touchInputValue;
+
+        if (!IsInputButtonHold)
+        {
+            OnInputUpdate?.Invoke(true);
+            IsInputButtonHold = true;
         }
     }
 
