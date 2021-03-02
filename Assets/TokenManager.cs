@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class TokenManager : MonoBehaviour
 {
-    [SerializeField] Vector2Variable tokensCenterPosition;
     List<Token> allTokens;
     List<int> ActivatedIndex;
     bool isAllTokenGathered;
@@ -14,7 +13,6 @@ public class TokenManager : MonoBehaviour
     {
         allTokens = new List<Token>();
         ActivatedIndex = new List<int>();
-        tokensCenterPosition.value = Vector2.zero;
     }
 
     void OnEnable()
@@ -31,33 +29,30 @@ public class TokenManager : MonoBehaviour
     void ActivateToken(Token token)
     {
         ActivatedIndex.Add(token.TokenIndex);
-
-        isAllTokenGathered = (allTokens.Count == ActivatedIndex.Count);
-
-        if (isAllTokenGathered)
-            OnAllTokensActivated?.Invoke();
+        isAllTokenGathered = (ActivatedIndex.Count >= allTokens.Count);
 
         for (int i = 0; i < token.NeighborIndexes.Length; i++)
         {
-            if(ActivatedIndex.IndexOf(token.NeighborIndexes[i]) > -1)
-            {
-               StartCoroutine(DrawLine(token.transform.position, GetPositionBasedOnIndex(token.NeighborIndexes[i])));
-            }
+            TokenNeighbour tokenNeighbour = token.NeighborIndexes[i];
+
+            if (isNeighbourTokenActive(tokenNeighbour.NeighbourIndex))
+               DrawLine(tokenNeighbour.NeighbourConnectLine);
         }
 
+        if (isAllTokenGathered)
+            OnAllTokensActivated?.Invoke();
     }
 
-
-    IEnumerator DrawLine(Vector2 StartPoint, Vector2 EndPoint)
+    bool isNeighbourTokenActive(int NeighbourIndex)
     {
-        print("StartPoint: " + StartPoint);
-        print("EndPoint: " + EndPoint);
-       
-        yield return null;
-        // After All Lines Drawn
-        if(isAllTokenGathered)
-            OnAllLineDrawn?.Invoke();
+        return (ActivatedIndex.IndexOf(NeighbourIndex) > -1);
+    }
 
+    void DrawLine(GameObject connectLineToDraw)
+    {
+        connectLineToDraw.SetActive(true);
+        print("Line To Draw");
+        //TODO: ADD SFX, PARTICLE OR ETC TO JUICY DRAWING LINE
     }
 
     Vector2 GetPositionBasedOnIndex(int Index)
@@ -82,5 +77,4 @@ public class TokenManager : MonoBehaviour
 
 
     public static Action OnAllTokensActivated;
-    public static Action OnAllLineDrawn;
 }

@@ -7,7 +7,6 @@ public class FinishEvent : MonoBehaviour
 {
     Collider2D finishCollider;
     SpriteRenderer finishSpriteRenderer;
-    [SerializeField] Vector2Variable centerPosition;
 
     void Awake()
     {
@@ -19,8 +18,7 @@ public class FinishEvent : MonoBehaviour
 
     void OnEnable()
     {
-        Orbitcreator.OnOrbitDrawn += EnableFinishLineActivationState;
-        TokenManager.OnAllLineDrawn += EnableFinishLineActivationState;
+        TokenManager.OnAllTokensActivated += EnableFinishLineActivationState;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -31,7 +29,6 @@ public class FinishEvent : MonoBehaviour
 
     void EnableFinishLineActivationState()
     {
-        transform.position = centerPosition.value;
         finishCollider.enabled = true;
         finishSpriteRenderer.enabled = true;
         //TODO: SHOW ANY PARTICLE OR EFFECTS HERE
@@ -41,8 +38,7 @@ public class FinishEvent : MonoBehaviour
 
     void OnDisable()
     {
-        Orbitcreator.OnOrbitDrawn -= EnableFinishLineActivationState;
-        TokenManager.OnAllLineDrawn -= EnableFinishLineActivationState;
+        TokenManager.OnAllTokensActivated -= EnableFinishLineActivationState;
     }
     public static Action OnBallReachFinishPoint;
 }

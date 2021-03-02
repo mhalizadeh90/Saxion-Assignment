@@ -6,7 +6,7 @@ using System;
 public class Token : MonoBehaviour
 {
     public int TokenIndex;
-    public int[] NeighborIndexes;
+    public TokenNeighbour[] NeighborIndexes;
     Collider2D tokenCollider;
 
     void Awake()
