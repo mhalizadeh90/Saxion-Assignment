@@ -10,7 +10,10 @@ public class SpikeCollisionEventTrigger : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (ParticleSystem)
+        {
+            ParticleSystem.transform.position = collision.transform.position;
             ParticleSystem.Play();
+        }
         OnPlayerHitSpikes?.Invoke();
     }
 
