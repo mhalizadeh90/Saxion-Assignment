@@ -17,7 +17,12 @@ public class SwitchableWithLightSensor : MonoBehaviour
         currentSwitchState = DefaultState;
         itemCollider = GetComponent<Collider2D>();
         dissolveController = GetComponent<DissolveController>();
-        
+
+        InitializeDoorState();
+    }
+
+    private void InitializeDoorState()
+    {
         if (DefaultState == OpenState.Open)
             Open();
         else if (DefaultState == OpenState.Close)
@@ -27,7 +32,10 @@ public class SwitchableWithLightSensor : MonoBehaviour
     void OnEnable()
     {
         LightSensor.OnLightSensorTriggered += ChangeSwitchState;
+        SpikeCollisionEventTrigger.OnPlayerHitSpikes += InitializeDoorState;
     }
+
+
 
     void ChangeSwitchState(Lights light)
     {
@@ -66,5 +74,6 @@ public class SwitchableWithLightSensor : MonoBehaviour
     void OnDisable()
     {
         LightSensor.OnLightSensorTriggered -= ChangeSwitchState;
+        SpikeCollisionEventTrigger.OnPlayerHitSpikes -= InitializeDoorState;
     }
 }
