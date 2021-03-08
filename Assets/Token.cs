@@ -28,7 +28,6 @@ public class Token : MonoBehaviour
     void TokenActivationEffects()
     {
         //TODO: WORK ON SFX + PARTICLE + CHANGING TOKEN SPRITE + ANY JUICY STUFF
-        print("To Show Token Activation Effects");
     }
 
     public static Action<Token> OnTokenActivated;

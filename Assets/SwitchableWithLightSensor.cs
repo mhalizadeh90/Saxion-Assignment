@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public enum OpenState { Open, Close }
 
 public class SwitchableWithLightSensor : MonoBehaviour
 {
-    public enum OpenState { Open,Close }
-
     [SerializeField] Lights Light;
     [SerializeField] OpenState DefaultState;
     OpenState currentSwitchState;
@@ -33,6 +32,9 @@ public class SwitchableWithLightSensor : MonoBehaviour
     {
         LightSensor.OnLightSensorTriggered += ChangeSwitchState;
         SpikeCollisionEventTrigger.OnPlayerHitSpikes += InitializeDoorState;
+        MultipleSwitchManager.OnAllSwitchesActivated += OpenSwitchState;
+        MultipleSwitchManager.OnSwitchDiactivated += CloseSwitchState;
+
     }
 
 
@@ -52,6 +54,16 @@ public class SwitchableWithLightSensor : MonoBehaviour
             Open();
             //TODO: SFX & EFFECTS FOR ENABLING DOOR OR TRAP
         }
+    }
+
+    void OpenSwitchState(Lights light)
+    {
+        if (light == Light)     Open();
+    }
+
+    void CloseSwitchState(Lights light)
+    {
+        if (light == Light) Close();
     }
 
     void Open()
@@ -75,5 +87,7 @@ public class SwitchableWithLightSensor : MonoBehaviour
     {
         LightSensor.OnLightSensorTriggered -= ChangeSwitchState;
         SpikeCollisionEventTrigger.OnPlayerHitSpikes -= InitializeDoorState;
+        MultipleSwitchManager.OnAllSwitchesActivated -= OpenSwitchState;
+        MultipleSwitchManager.OnSwitchDiactivated -= CloseSwitchState;
     }
 }

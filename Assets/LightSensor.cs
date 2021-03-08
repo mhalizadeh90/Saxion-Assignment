@@ -13,6 +13,7 @@ public class LightSensor : MonoBehaviour
     [SerializeField] Transform endPoint;
     [SerializeField] float raycastLength;
     [SerializeField] bool IsDebuggingEnabled = true;
+    [SerializeField] float DelayToSwitch = 0;
 
     Vector2 raycastDirection;
     int PlayerLayerID;
@@ -53,15 +54,21 @@ public class LightSensor : MonoBehaviour
             Debug.DrawRay(startPoint.position, raycastDirection * raycastLength, Color.blue);
 
         bool isLightSensorHitPlayer = (Physics2D.Raycast(startPoint.position, raycastDirection, raycastLength, PlayerLayerID).collider != null);
-        
+
         if (isLightSensorHitPlayer && !isSwitchTriggered)
         {
-            OnLightSensorTriggered?.Invoke(SensorLight);
-            print(SensorLight + " is activated.");
+            if (DelayToSwitch > 0)
+                Invoke("startSwitch", DelayToSwitch);
+            else
+                OnLightSensorTriggered?.Invoke(SensorLight);
         }
 
         isSwitchTriggered = isLightSensorHitPlayer;
+    }
 
+    void startSwitch()
+    {
+        OnLightSensorTriggered?.Invoke(SensorLight);
     }
 
     public static Action<Lights> OnLightSensorTriggered;
@@ -69,6 +76,6 @@ public class LightSensor : MonoBehaviour
 
 public enum Lights
 {
-    Blue, Red, Green
+    Blue, Red, Green, Yellow
 }
 

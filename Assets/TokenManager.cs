@@ -51,7 +51,6 @@ public class TokenManager : MonoBehaviour
     void DrawLine(GameObject connectLineToDraw)
     {
         connectLineToDraw.SetActive(true);
-        print("Line To Draw");
         //TODO: ADD SFX, PARTICLE OR ETC TO JUICY DRAWING LINE
     }
 
