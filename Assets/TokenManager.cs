@@ -19,6 +19,23 @@ public class TokenManager : MonoBehaviour
     {
         Token.OnTokenStart += registerToken;
         Token.OnTokenActivated += ActivateToken;
+        SpikeCollisionEventTrigger.OnPlayerHitSpikes += ResetTokens;
+    }
+
+
+    void ResetTokens()
+    {
+        isAllTokenGathered = false;
+
+        ActivatedIndex.Clear();
+
+        for (int i = 0; i < allTokens.Count; i++)
+        {
+            for (int j = 0; j < allTokens[i].NeighborIndexes.Length; j++)
+            {
+                allTokens[i].NeighborIndexes[j].NeighbourConnectLine.SetActive(false);
+            }
+        }
     }
 
     void registerToken(Token token)
@@ -72,6 +89,7 @@ public class TokenManager : MonoBehaviour
     void OnDisable()
     {
         Token.OnTokenStart -= registerToken;
+        SpikeCollisionEventTrigger.OnPlayerHitSpikes -= ResetTokens;
     }
 
 

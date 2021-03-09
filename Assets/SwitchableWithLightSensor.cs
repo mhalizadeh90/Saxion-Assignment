@@ -34,6 +34,8 @@ public class SwitchableWithLightSensor : MonoBehaviour
         SpikeCollisionEventTrigger.OnPlayerHitSpikes += InitializeDoorState;
         MultipleSwitchManager.OnAllSwitchesActivated += OpenSwitchState;
         MultipleSwitchManager.OnSwitchDiactivated += CloseSwitchState;
+        MagnetSwitch.OnFullyCharged += OpenSwitchState;
+        MagnetSwitch.OnFullyDeCharged += CloseSwitchState;
 
     }
 
@@ -89,5 +91,7 @@ public class SwitchableWithLightSensor : MonoBehaviour
         SpikeCollisionEventTrigger.OnPlayerHitSpikes -= InitializeDoorState;
         MultipleSwitchManager.OnAllSwitchesActivated -= OpenSwitchState;
         MultipleSwitchManager.OnSwitchDiactivated -= CloseSwitchState;
+        MagnetSwitch.OnFullyCharged -= OpenSwitchState;
+        MagnetSwitch.OnFullyDeCharged -= CloseSwitchState;
     }
 }

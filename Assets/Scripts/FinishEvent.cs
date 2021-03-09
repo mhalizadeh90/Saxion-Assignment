@@ -12,13 +12,13 @@ public class FinishEvent : MonoBehaviour
     {
         finishCollider = GetComponent<Collider2D>();
         finishSpriteRenderer = GetComponent<SpriteRenderer>();
-        finishCollider.enabled = false;
-        finishSpriteRenderer.enabled = false;
+        HideFinishLineActivationState();
     }
 
     void OnEnable()
     {
         TokenManager.OnAllTokensActivated += EnableFinishLineActivationState;
+        SpikeCollisionEventTrigger.OnPlayerHitSpikes += HideFinishLineActivationState;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -34,11 +34,18 @@ public class FinishEvent : MonoBehaviour
         //TODO: SHOW ANY PARTICLE OR EFFECTS HERE
     }
 
+    void HideFinishLineActivationState()
+    {
+        finishCollider.enabled = false;
+        finishSpriteRenderer.enabled = false;
+    }
+
 
 
     void OnDisable()
     {
         TokenManager.OnAllTokensActivated -= EnableFinishLineActivationState;
+        SpikeCollisionEventTrigger.OnPlayerHitSpikes -= HideFinishLineActivationState;
     }
     public static Action OnBallReachFinishPoint;
 }

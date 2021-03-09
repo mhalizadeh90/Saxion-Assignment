@@ -13,6 +13,11 @@ public class Token : MonoBehaviour
     {
         tokenCollider = GetComponent<Collider2D>();
     }
+
+    void OnEnable()
+    {
+        SpikeCollisionEventTrigger.OnPlayerHitSpikes += ResetColider;
+    }
     void Start()
     {
         OnTokenStart?.Invoke(this);
@@ -25,11 +30,21 @@ public class Token : MonoBehaviour
         tokenCollider.enabled = false;
     }
 
+    void ResetColider()
+    {
+        tokenCollider.enabled = true;
+    }
+
     void TokenActivationEffects()
     {
         //TODO: WORK ON SFX + PARTICLE + CHANGING TOKEN SPRITE + ANY JUICY STUFF
     }
 
+
+    void OnDisable()
+    {
+        SpikeCollisionEventTrigger.OnPlayerHitSpikes -= ResetColider;
+    }
     public static Action<Token> OnTokenActivated;
     public static Action<Token> OnTokenStart;
 
